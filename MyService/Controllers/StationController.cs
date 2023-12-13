@@ -21,14 +21,14 @@ namespace MyService.Controllers
         }
         [HttpGet]
         [Route("{numOfRentalHours}")]
-        public async Task<StationDTO> FindLucrativeStation(int numOfRentalHours, [FromBody] int num, string street, string neighborhood, string city)
+        public async Task<StationDTO> FindLucrativeStation(int numOfRentalHours, /*[FromBody] StationDTO stationDTO */[FromQuery] int num, [FromQuery] string street, [FromQuery] string neighborhood, [FromQuery] string city)
         {
             StationDTO stationDTO = new StationDTO(num, street, neighborhood, city);
             return await stationService.GetLucrativeStation(numOfRentalHours, stationDTO);
         }
         [HttpGet]
         [Route("{getAll}")]
-        public async Task<List<StationDTO>> GetAllAsync(string getAll = null)
+        public async Task<List<StationDTO>> GetAllAsync()
         {
             return await stationService.ReadAllAsync();
         }
