@@ -27,7 +27,7 @@ namespace MyService.Controllers
             return await stationService.GetLucrativeStation(numOfRentalHours, stationDTO);
         }
         [HttpGet]
-        [Route("{getAll}, {getAll2}")]
+        [Route("getAll")]
         public async Task<List<StationDTO>> GetAllAsync(string getAll = null, string getAll2 = null)
         {
             return await stationService.ReadAllAsync();

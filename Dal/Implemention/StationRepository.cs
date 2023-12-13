@@ -147,7 +147,7 @@ namespace Dal.Implemention
         #endregion
         public async Task<Station> GetNearestStation(bool fullStation, bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
         {
-            List<Station> stationList;
+            List<Station> stationList = new List<Station>();
             //try to check if there are empty or full station (depend at fullStation)
             //not matter centeral or not in the same street
             stationList = await GetStationsByStreet(fullStation, isMustCenteral, street);
@@ -179,8 +179,9 @@ namespace Dal.Implemention
 
         public async Task<List<Station>> GetStationsByStreet(bool fullStation, bool isMustCenteral, string street)
         {
-            Street str = await general.Streets.Where(s => s.Name.Equals(street)).FirstAsync();
-            if (str == null)
+            //in order to get the street id: here the error!!!!!!🖐️🖐️🖐️
+            Street str = await general.Streets.Where(s => s.Name.Equals(street)).FirstOrDefaultAsync();
+            if (str == null) // this street is not exsist in the DB, for sure there is no stations
                 return null;
             int streetId = str.Id;
             if (isMustCenteral)

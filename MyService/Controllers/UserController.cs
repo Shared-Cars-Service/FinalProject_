@@ -15,13 +15,15 @@ namespace MyService.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateUser([FromBody] string name, string email, string password)
+        public async Task<ActionResult> CreateUser(string name, string email, string password)
         {
-            UserDTO userDTO = new UserDTO();
-            userDTO.Name = name;
-            userDTO.Email = email;
-            userDTO.Password = password;
-            return await userService.CreateAsync(userDTO);
+            UserDTO userDTO = new UserDTO
+            {
+                Name = name,
+                Email = email,
+                Password = password
+            };
+            return await userService.GoodCreateAsync(userDTO);
         }
         [HttpGet]
         public async Task<List<UserDTO>> GetUsers()

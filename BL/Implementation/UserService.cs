@@ -23,11 +23,6 @@ namespace BL.Implementation
             this.mapper = mapper;
         }
         #region basic-CRUD
-        public async Task<int> CreateAsync(UserDTO item)
-        {
-            User user = mapper.Map<User>(item);
-            return await userRepository.CreateAsync(user);
-        }
         public async Task<List<UserDTO>> ReadAllAsync()
         {
             List<User> usersLst = await userRepository.ReadAllAsync();
@@ -50,24 +45,32 @@ namespace BL.Implementation
             UserDTO userDTO = mapper.Map<UserDTO>(user);
             return userDTO;
         }
+        public async Task<int> CreateAsync(UserDTO item)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
-        public async Task<ActionResult<UserDTO>> ReadByPasswordAsync(string password,string name)
+        public async Task<ActionResult> ReadByPasswordAsync(string password,string name)
         {
             User user = await userRepository.ReadByPasswordAsync(password);
             UserDTO userDTO = mapper.Map<UserDTO>(user);
             if(userDTO != null && userDTO.Name.Equals(name))
             {
-                return userDTO;
+                return new StatusCodeResult(StatusCodes.Status200OK);
             }
             return new StatusCodeResult(StatusCodes.Status417ExpectationFailed);
 
         }
 
-
-
-
-
+        public async Task<ActionResult> GoodCreateAsync(UserDTO item)
+        {
+            User user = mapper.Map<User>(item);
+            int newId = await userRepository.CreateAsync(user);
+            if (newId != -1)
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
 
     }
 }
