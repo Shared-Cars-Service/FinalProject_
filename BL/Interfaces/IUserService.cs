@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace BL.Interfaces
 {
-    public interface IUserService : IService <UserDTO>
+    public interface IUserService : IService<UserDTO>
     {
-        public Task<ActionResult> ReadByPasswordAsync(string password, string name);
-        public Task<ActionResult> GoodCreateAsync(UserDTO item);
+        public Task<ActionResult<UserDTO>> ReadByPasswordAsync(string password, string name);
     }
 }

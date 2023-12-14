@@ -9,7 +9,7 @@ using Dal.DataObject;
 
 namespace BL.profiles
 {
-    internal class CarAndCarDTO:Profile
+    internal class CarAndCarDTO : Profile
     {
         public CarAndCarDTO()
         {

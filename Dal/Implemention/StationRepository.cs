@@ -1,7 +1,6 @@
 ﻿using Dal.DataObject;
 using Dal.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,76 +26,27 @@ namespace Dal.Implemention
         public async Task<int> CreateAsync(Station station)
         {
             var newStation = general.Stations.Add(station);
+            //int id = -1;
+            //id = FindStreetAsync(station.Street.Name);
+            //if(id == -1)
+            //{
+            //    general.Streets.Add(station.Street);
+            //}
             await general.SaveChangesAsync();
             return newStation.Entity.Id;
         }
-        public async Task<Street> GetStreetOfStationAsync(string street)
+        private int FindStreetAsync(string street)
         {
-            List<Street> streetLst = await general.Streets.Include(street => street.Neigborhood).ThenInclude(nei => nei.City).ToListAsync();
-            Street fullStreet = null;
-            streetLst.ForEach(st =>
-            {
-                if (street.Equals(st.Name))
-                    fullStreet = st;
-            });
-            if (street == null)//this street is not exsist so we have to add it
-            {
-                await general.Streets.AddAsync(new Street() { Name = street});
-                streetLst = await general.Streets.Include(street => street.Neigborhood).ThenInclude(nei => nei.City).ToListAsync();
-                streetLst.ForEach(st =>
-                {
-                    if (street.Equals(st.Name))
-                        fullStreet = st;
-                });
-            }
-            return fullStreet;
+            return 0;
         }
-        //private async void SetNeighborhoodIdAsync(Station station)
-        //{
-        //    List<Neighborhood> neighborhoodLst = await general.Neighborhoods.Include(nei => nei.City).ToListAsync();
-        //    Neighborhood neighborhood = null;
-        //    neighborhoodLst.ForEach(nei =>
-        //    {
-        //        if (nei.Name.Equals(station.Street.Neigborhood.Name))
-        //            neighborhood = nei;
-        //    });
-        //    if (neighborhood == null)//this neighborhood is not exsist so we have to add it
-        //    {
-        //        await general.Neighborhoods.AddAsync(station.Street.Neigborhood);
-        //        neighborhoodLst = await general.Neighborhoods.Include(nei => nei.City).ToListAsync();
-        //        neighborhood = null;
-        //        neighborhoodLst.ForEach(nei =>
-        //        {
-        //            if (nei.Name.Equals(station.Street.Neigborhood.Name))
-        //                neighborhood = nei;
-        //        });
-        //    }
-        //    station.Street.Neigborhood = neighborhood;
-        //    station.Street.NeigborhoodId = neighborhood.Id;
-        //}
-        //private async void SetCityIdAsync(Station station)
-        //{
-        //    List<City> cityLst = await general.Cities.ToListAsync();
-        //    City city = null;
-        //    cityLst.ForEach(ci =>
-        //    {
-        //        if (ci.Name.Equals(station.Street.Neigborhood.City.Name))
-        //            city = ci;
-        //    });
-        //    if (city == null)//this city is not exsist so we have to add it
-        //    {
-        //        await general.Cities.AddAsync(station.Street.Neigborhood.City);
-        //        cityLst = await general.Cities.ToListAsync();
-        //        city = null;
-        //        cityLst.ForEach(ci =>
-        //        {
-        //            if (ci.Name.Equals(station.Street.Neigborhood.City.Name))
-        //                city = ci;
-        //        });
-        //    }
-        //    station.Street.Neigborhood.City = city;
-        //    station.Street.Neigborhood.CityId = city.Id;
-        //}
+        private int FindNeighborhoodAsync(string street)
+        {
+            return 0;
+        }
+        private int FindCityAsync(string street)
+        {
+            return 0;
+        }
 
         public async Task<bool> DeleteAsync(int stationId)
         {
@@ -122,7 +72,7 @@ namespace Dal.Implemention
             return await general.Stations.Include(station => station.Street)
                 .ThenInclude(street => street.Neigborhood)
                  .ThenInclude(nei => nei.City)
-                 .ToListAsync();
+                 .ToListAsync<Station>();
 
         }
 
@@ -147,7 +97,7 @@ namespace Dal.Implemention
         #endregion
         public async Task<Station> GetNearestStation(bool fullStation, bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
         {
-            List<Station> stationList = new List<Station>();
+            List<Station> stationList;
             //try to check if there are empty or full station (depend at fullStation)
             //not matter centeral or not in the same street
             stationList = await GetStationsByStreet(fullStation, isMustCenteral, street);

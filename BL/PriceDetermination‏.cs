@@ -35,7 +35,7 @@ namespace BL
             if (DateTime.Now.Month == 7 || DateTime.Now.Month == 8)
                 return 150.0;
             else
-                return  105.0;
+                return 105.0;
         }
         public static double Normal_wolking_distance_in_km()
         {

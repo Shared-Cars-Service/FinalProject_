@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BL.Interfaces
 {
-    public interface IService <T> 
+    public interface IService<T>
     {
         public Task<int> CreateAsync(T item);
         public Task<List<T>> ReadAllAsync();

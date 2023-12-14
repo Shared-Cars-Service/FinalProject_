@@ -8,7 +8,7 @@ namespace Dal.Interfaces
 {
     public interface IRepository<T>
     {
-        public Task <int> CreateAsync(T item);
+        public Task<int> CreateAsync(T item);
         public Task<List<T>> ReadAllAsync();
         public Task<T> ReadByIdAsync(int code);
         public Task<bool> UpdateAsync(T newItem);

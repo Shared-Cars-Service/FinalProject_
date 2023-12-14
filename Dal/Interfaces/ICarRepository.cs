@@ -7,7 +7,7 @@ using Dal.DataObject;
 
 namespace Dal.Interfaces
 {
-    public interface ICarRepository:IRepository<Car>
+    public interface ICarRepository : IRepository<Car>
     {
         public Task<bool> ChangeTheCarModeAsync(int carId);
     }

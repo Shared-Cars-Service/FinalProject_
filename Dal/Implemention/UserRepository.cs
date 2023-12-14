@@ -17,18 +17,12 @@ namespace Dal.DalImplements
             this.general = general;
         }
         #region basic-CRUD
-     
+
         public async Task<int> CreateAsync(User item)
         {
-            try
-            {
-                var newItem = general.Users.Add(item);
-                await general.SaveChangesAsync();
-                return newItem.Entity.Code;
-            }
-            catch (Exception ex) { 
-                return -1;
-            }
+            var newItem = general.Users.Add(item);
+            await general.SaveChangesAsync();
+            return newItem.Entity.Code;
         }
 
         public async Task<User> ReadByIdAsync(int code)
@@ -67,14 +61,14 @@ namespace Dal.DalImplements
                 return false;
             }
 
-       
+
         }
         #endregion
         public async Task<User> ReadByPasswordAsync(string password)
         {
             return await general.Users.Where(x => x.Password == password).FirstOrDefaultAsync();
         }
-      
+
 
     }
 }
