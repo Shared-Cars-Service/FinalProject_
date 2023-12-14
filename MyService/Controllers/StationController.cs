@@ -40,7 +40,14 @@ namespace MyService.Controllers
         //{
         //    return await stationService.ReadByIdAsync(id);
         //}
-
+        /// <summary>
+        /// //
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="street"></param>
+        /// <param name="neighborhood"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<int> CreateAsync(int num , string street , string neighborhood , string city)
         {
@@ -60,4 +67,4 @@ namespace MyService.Controllers
  
     }
 }
-
+//////////////////////////////////
