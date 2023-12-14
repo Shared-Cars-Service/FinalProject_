@@ -20,9 +20,15 @@ namespace Dal.DalImplements
      
         public async Task<int> CreateAsync(User item)
         {
-            var newItem = general.Users.Add(item);  
-            await general.SaveChangesAsync();
-            return newItem.Entity.Code;
+            try
+            {
+                var newItem = general.Users.Add(item);
+                await general.SaveChangesAsync();
+                return newItem.Entity.Code;
+            }
+            catch (Exception ex) { 
+                return -1;
+            }
         }
 
         public async Task<User> ReadByIdAsync(int code)
