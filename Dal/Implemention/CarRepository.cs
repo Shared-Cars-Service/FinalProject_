@@ -66,6 +66,7 @@ namespace Dal.Implemention
             try
             {
                 Car car = await general.Cars.FirstOrDefaultAsync(c => c.Id == carId);
+
                 if (car != null)
                 {
                     car.IsAvailable = !car.IsAvailable; // Toggle the availability
