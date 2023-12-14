@@ -95,7 +95,7 @@ namespace Dal.Implemention
             }
         }
         #endregion
-        public async Task<Station> GetNearestStation(bool fullStation, bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
+        public async Task<Station> GetNearestStation(bool fullStation,bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
         {
             List<Station> stationList;
             //try to check if there are empty or full station (depend at fullStation)
@@ -126,7 +126,7 @@ namespace Dal.Implemention
             return await FindNearestStationFromList(point1, stationList);
         }
         #region acsess to DB
-
+        
         public async Task<List<Station>> GetStationsByStreet(bool fullStation, bool isMustCenteral, string street)
         {
             //in order to get the street id: here the error!!!!!!🖐️🖐️🖐️
