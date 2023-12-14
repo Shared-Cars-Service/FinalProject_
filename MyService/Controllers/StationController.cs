@@ -21,14 +21,14 @@ namespace MyService.Controllers
         }
         [HttpGet]
         [Route("{numOfRentalHours}")]
-        public async Task<StationDTO> FindLucrativeStation(int numOfRentalHours, int num, string street, string neighborhood, string city)
+        public async Task<StationDTO> FindLucrativeStation(int numOfRentalHours, /*[FromBody] StationDTO stationDTO */[FromQuery] int num, [FromQuery] string street, [FromQuery] string neighborhood, [FromQuery] string city)
         {
             StationDTO stationDTO = new StationDTO(num, street, neighborhood, city);
             return await stationService.GetLucrativeStation(numOfRentalHours, stationDTO);
         }
         [HttpGet]
         [Route("getAll")]
-        public async Task<List<StationDTO>> GetAllAsync(string getAll = null, string getAll2 = null)
+        public async Task<List<StationDTO>> GetAllAsync()
         {
             return await stationService.ReadAllAsync();
         }
@@ -40,7 +40,14 @@ namespace MyService.Controllers
         //{
         //    return await stationService.ReadByIdAsync(id);
         //}
-
+        /// <summary>
+        /// //
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="street"></param>
+        /// <param name="neighborhood"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<int> CreateAsync(int num , string street , string neighborhood , string city)
         {
@@ -61,3 +68,12 @@ namespace MyService.Controllers
     }
 }
 
+/////////////////////gffffffffffffffffffffffff
+/////////////
+///
+////////////////////////////////
+
+
+//
+//
+//

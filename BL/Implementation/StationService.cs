@@ -27,15 +27,9 @@ namespace BL.Implementation
         }
         #region basic CRUD
 
-        public async Task<int> CreateAsync(StationDTO stationDTO)
+        public async Task<int> CreateAsync(StationDTO item)
         {
-            Station station = new Station();
-            Point point = convertStationDTOToPoint(stationDTO);
-            station.X = point.X;
-            station.Y = point.Y;
-            station.Number = stationDTO.Number;
-            station.Street = await stationRepository.GetStreetOfStationAsync(stationDTO.Street);
-            station.StreetId = station.Street.Id;
+            Station station = mapper.Map<Station>(item);
             return await stationRepository.CreateAsync(station);
         }
 
