@@ -180,7 +180,7 @@ namespace Dal.Implemention
         public async Task<List<Station>> GetStationsByStreet(bool fullStation, bool isMustCenteral, string street)
         {
             //in order to get the street id: here the error!!!!!!🖐️🖐️🖐️
-            Street str = await general.Streets.Where(s => s.Name.Equals(street)).FirstOrDefaultAsync();
+            Street str = await general.Streets.Where(s => s.Name == street).FirstOrDefaultAsync();
             if (str == null) // this street is not exsist in the DB, for sure there is no stations
                 return null;
             int streetId = str.Id;
