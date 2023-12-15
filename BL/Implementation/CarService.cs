@@ -30,7 +30,7 @@ namespace BL.Implementation
         }
         public async Task<bool> DeleteAsync(int id)
         {
-              return  await carRepository.DeleteAsync(id);
+            return await carRepository.DeleteAsync(id);
         }
 
         public async Task<List<CarDTO>> ReadAllAsync()

@@ -52,11 +52,11 @@ namespace BL.Implementation
         }
         #endregion
 
-        public async Task<ActionResult<UserDTO>> ReadByPasswordAsync(string password,string name)
+        public async Task<ActionResult<UserDTO>> ReadByPasswordAsync(string password, string name)
         {
             User user = await userRepository.ReadByPasswordAsync(password);
             UserDTO userDTO = mapper.Map<UserDTO>(user);
-            if(userDTO != null && userDTO.Name.Equals(name))
+            if (userDTO != null && userDTO.Name.Equals(name))
             {
                 return userDTO;
             }

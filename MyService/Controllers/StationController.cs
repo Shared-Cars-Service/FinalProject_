@@ -33,7 +33,7 @@ namespace MyService.Controllers
             return await stationService.ReadAllAsync();
         }
         //can not do the next lines because it is the same route to the function FindLucrativeStation
-        
+
         //[HttpGet]
         //[Route("{id}")]
         //public async Task<Station>GetByIdAsync (int id)
@@ -49,22 +49,22 @@ namespace MyService.Controllers
         /// <param name="city"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<int> CreateAsync(int num , string street , string neighborhood , string city)
+        public async Task<int> CreateAsync(int num, string street, string neighborhood, string city)
         {
-            StationDTO stationDTO = new StationDTO(num , street , neighborhood , city);
+            StationDTO stationDTO = new StationDTO(num, street, neighborhood, city);
             return await stationService.CreateAsync(stationDTO);
         }
         [HttpPut]
-        public async Task<bool> UpdateAsync (StationDTO stationDTO)
+        public async Task<bool> UpdateAsync(StationDTO stationDTO)
         {
             return await stationService.UpdateAsync(stationDTO);
         }
         [HttpDelete]
-        public async Task<bool> DeleteAsync (int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return await stationService.DeleteAsync(id);  
+            return await stationService.DeleteAsync(id);
         }
- 
+
     }
 }
 

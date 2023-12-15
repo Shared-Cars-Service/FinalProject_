@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BL.profiles
 {
-    internal class UserAndUserDTO:Profile
+    internal class UserAndUserDTO : Profile
     {
         public UserAndUserDTO()
         {

@@ -8,7 +8,7 @@ namespace MyService.Controllers
     public class ServiceController : ControllerBase
     {
 
-     
+
 
     }
 }
