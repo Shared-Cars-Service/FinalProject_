@@ -35,6 +35,8 @@ namespace MyService.Controllers
             return await carService.ReadByIdAsync(id);
         }
         [HttpPut]
+        //אולי נעשה שהפונקציה תקבל מז של התחנה במקום
+        //כי איך הריאקט ידע מה המז של הרכב בתחנה???
         public async Task<bool> ChangeTheCarModeAsync(int carId)
         {
             return await carService.ChangeTheCarModeAsync(carId);
