@@ -64,6 +64,11 @@ namespace MyService.Controllers
         {
             return await stationService.DeleteAsync(id);
         }
+        [HttpGet]
+        [Route("changeCarMode")]
+        public async Task<bool> ChangeCarInStationMode(int stationId) {
+            return await stationService.ChangeCarInStationMode(stationId);
+        }
 
     }
 }

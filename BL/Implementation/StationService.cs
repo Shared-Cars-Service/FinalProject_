@@ -4,6 +4,7 @@ using BL.Interfaces;
 using Dal.DataObject;
 using Dal.Interfaces;
 using GoogleMaps.LocationServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,10 @@ using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace BL.Implementation
 {
@@ -55,6 +58,13 @@ namespace BL.Implementation
             return await stationRepository.DeleteAsync(code);
         }
         #endregion
+        public async Task<bool> ChangeCarInStationMode(int stationId)
+        {
+            int carId = await stationRepository.getCarIdfromStationId(stationId);
+            //return put request to http://localhost:5073/api/Car?carId={carId}
+            return CarService.ChangeTheCarModeAsync(stationId);
+        }
+
         public async Task<StationDTO> GetNearestStation(StationDTO stationDTO)
         {
             Point point = convertStationDTOToPoint(stationDTO);

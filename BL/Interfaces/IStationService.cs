@@ -13,6 +13,6 @@ namespace BL.Interfaces
     {
         public Task<StationDTO> GetNearestStation(StationDTO stationDTO);
         public Task<StationDTO> GetLucrativeStation(int numOfRentalHours, StationDTO stationDTO);
-        //Task<List<Station>> GetAllAsync();
+        public Task<bool> ChangeCarInStationMode(int stationId);
     }
 }

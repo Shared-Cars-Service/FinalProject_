@@ -9,11 +9,20 @@ namespace BL.DTO
 {
     public class StationDTO
     {
+        public int StationID { get; set; }
         public int Number { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string Neighborhood { get; set; }
         //להוסיף בDAL את NUMBER
+        public StationDTO(int stationId, int number, string street, string neighborhood, string city)
+        {
+            this.StationID = stationId;
+            this.Number = number;
+            this.Neighborhood = neighborhood;
+            this.Street = street;
+            this.City = city;
+        }
         public StationDTO(int number, string street, string neighborhood, string city)
         {
             this.Number = number;

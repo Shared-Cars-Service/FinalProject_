@@ -12,6 +12,7 @@ namespace Dal.Interfaces
     public interface IStationRepository : IRepository<Station>
     {
         public Task<Station> GetNearestStation(bool fullStation, bool isMustCenteral, Point point, string street, string neighorhood, string city);
+        public Task<int> getCarIdfromStationId(int stationId);
         //public Task<Station> GetNearestFullStation(Point point, string street, string neighorhood, string city);
         //public Task<Station> GetNearestCenteralStation(Point point, string street, string neighorhood, string city);
     }

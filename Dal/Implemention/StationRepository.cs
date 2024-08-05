@@ -95,6 +95,20 @@ namespace Dal.Implemention
             }
         }
         #endregion
+        public async Task<int> getCarIdfromStationId(int stationId)
+        {
+            //TODO: check if it working well
+            try { 
+            StationToCar stationToCar = await general.StationToCars.Where(s => s.StationId == stationId).FirstOrDefaultAsync();
+            int carId = (int)stationToCar.CarId;
+            return carId;
+            }
+            catch {
+                //if there are an error - there is no station with this id.
+                return -1;
+            }
+
+        }
         public async Task<Station> GetNearestStation(bool fullStation,bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
         {
             List<Station> stationList;

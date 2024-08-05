@@ -27,6 +27,7 @@ namespace BL.profiles
             .ForMember(n => n.Neighborhood, o => o.MapFrom(s => s.Street.Neigborhood.Name))
             .ForMember(c => c.City, o => o.MapFrom(s => s.Street.Neigborhood.City.Name))
             .ConstructUsing((src, ctx) => new StationDTO(
+                src.Id,
                 src.Number.Value,
                 src.Street.Name,
                 src.Street.Neigborhood.Name,
