@@ -50,9 +50,9 @@ namespace BL.Implementation
         {
             throw new NotImplementedException();
         }
-        public async Task<bool> ChangeTheCarModeAsync(int carId)
+        public async Task<bool> ChangeCarModeAsync(int carId)
         {
-            return await carRepository.ChangeTheCarModeAsync(carId);
+            return await carRepository.ChangeCarModeAsync(carId);
         }
     }
 }

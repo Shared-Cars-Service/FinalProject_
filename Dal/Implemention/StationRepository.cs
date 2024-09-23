@@ -98,49 +98,55 @@ namespace Dal.Implemention
         public async Task<int> getCarIdfromStationId(int stationId)
         {
             //TODO: check if it working well
-            try { 
-            StationToCar stationToCar = await general.StationToCars.Where(s => s.StationId == stationId).FirstOrDefaultAsync();
-            int carId = (int)stationToCar.CarId;
-            return carId;
+            try
+            {
+                StationToCar stationToCar = await general.StationToCars.Where(s => s.StationId == stationId).FirstOrDefaultAsync();
+                int carId = (int)stationToCar.CarId;
+                return carId;
             }
-            catch {
+            catch
+            {
                 //if there are an error - there is no station with this id.
                 return -1;
             }
 
         }
-        public async Task<Station> GetNearestStation(bool fullStation,bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
+        public async Task<Station> GetNearestStation(bool fullStation, bool isMustCenteral, Point point1, string street, string neighbornhood, string city)
         {
             List<Station> stationList;
+            if (fullStation)
+                stationList = await GetAllFullStations();
+            else
+                stationList = await GetAllEmptyStations();
             //try to check if there are empty or full station (depend at fullStation)
             //not matter centeral or not in the same street
-            stationList = await GetStationsByStreet(fullStation, isMustCenteral, street);
-            if (stationList == null)
-            {
-                //if there are no appropriate station in this street,
-                //try to find in the same neighborhood
-                stationList = await GetStationsByNeighborhood(fullStation, isMustCenteral, neighbornhood);
-                if (stationList == null)
-                {
-                    //if there are no appropriate station in this neighborhood,
-                    //try to find in the same city
-                    stationList = await GetStationsByCity(fullStation, isMustCenteral, city);
-                    if (stationList == null)
-                    {
-                        //if there are no appropriate station in this city find all 
-                        // empty stations or full stations
-                        //(depend on fullStation)
-                        if (fullStation)
-                            stationList = await GetAllFullStations();
-                        else
-                            stationList = await GetAllEmptyStations();
-                    }
-                }
-            }
+            //stationList = await GetStationsByStreet(fullStation, isMustCenteral, street);
+            //if (stationList == null)
+            //{
+            //    //if there are no appropriate station in this street,
+            //    //try to find in the same neighborhood
+            //    stationList = await GetStationsByNeighborhood(fullStation, isMustCenteral, neighbornhood);
+            //    if (stationList == null)
+            //    {
+            //        //if there are no appropriate station in this neighborhood,
+            //        //try to find in the same city
+            //        stationList = await GetStationsByCity(fullStation, isMustCenteral, city);
+            //        if (stationList == null)
+            //        {
+            //            //if there are no appropriate station in this city find all 
+            //            // empty stations or full stations
+            //            //(depend on fullStation)
+            //            if (fullStation)
+            //                stationList = await GetAllFullStations();
+            //            else
+            //                stationList = await GetAllEmptyStations();
+            //        }
+            //    }
+            //}
             return await FindNearestStationFromList(point1, stationList);
         }
         #region acsess to DB
-        
+
         public async Task<List<Station>> GetStationsByStreet(bool fullStation, bool isMustCenteral, string street)
         {
             //in order to get the street id: here the error!!!!!!🖐️🖐️🖐️
@@ -178,8 +184,17 @@ namespace Dal.Implemention
         }
         public async Task<List<Station>> GetAllEmptyStations()
         {
-            return await general.Stations.Include(station => station.Street).ThenInclude(street => street.Neigborhood).ThenInclude(nei => nei.City).Where(st => st.StationToCars.First().CarId == null).ToListAsync<Station>();
+            //return await general.Stations.Include(station => station.Street).ThenInclude(street => street.Neigborhood).ThenInclude(nei => nei.City).Where(st => st.StationToCars.First().CarId == null).ToListAsync<Station>();
+            return await general.Stations
+       .Where(s =>
+           general.StationToCars
+               .Any(sc => sc.StationId == s.Id &&
+                           general.Cars.Any(c => c.Id == sc.CarId && c.IsAvailable))
+       )
+       .Distinct()
+       .ToListAsync();
         }
+
         #endregion
         private async Task<Station> FindNearestStationFromList(Point point1, List<Station> stationList)
         {

@@ -62,11 +62,13 @@ namespace BL.Implementation
         {
             int carId = await stationRepository.getCarIdfromStationId(stationId);
             //return put request to http://localhost:5073/api/Car?carId={carId}
-            return CarService.ChangeTheCarModeAsync(stationId);
+            //return CarService.ChangeTheCarModeAsync(stationId);
+            return true;
         }
 
         public async Task<StationDTO> GetNearestStation(StationDTO stationDTO)
         {
+            Console.WriteLine(stationDTO.StationID + stationDTO.City+ stationDTO.Neighborhood + stationDTO.Street + stationDTO.Number);
             Point point = convertStationDTOToPoint(stationDTO);
             // I want the nearest station that is:
             // full (fullStation = true)
@@ -76,13 +78,16 @@ namespace BL.Implementation
         }
         public async Task<StationDTO> GetLucrativeStation(int numberOfRentalDays, StationDTO stationDTO)
         {
+            Console.WriteLine(stationDTO.StationID + stationDTO.City + stationDTO.Neighborhood + stationDTO.Street + stationDTO.Number);
+
+            Point point = convertStationDTOToPoint(stationDTO);
+
             double discount = PriceDetermination.Discount();
             double price_per_day = PriceDetermination.Price_per_day();
             double normal_wolking_distance_in_km = PriceDetermination.Normal_wolking_distance_in_km();
             double avg_price_of_taxi_fare_for_km = PriceDetermination.Avg_price_of_taxi_fare_for_km();
             double initial_state_of_counter = PriceDetermination.Initial_state_of_counter();
             Station lucrativeStation = new Station();
-            Point point = convertStationDTOToPoint(stationDTO);
             // I want the nearest station that is:
             // empty (fullStation = false)
             // centeral (isMustCenteral = true)
@@ -111,7 +116,8 @@ namespace BL.Implementation
             return Math.Sqrt(Math.Pow(point2.X - point1.X, 2) + Math.Pow(point2.Y - point1.Y, 2));
         }
 
-        const string API_KEY = "AIzaSyBFwHxGY47K0J1ECt99_TZA7aVO62ztUp0";
+        //const string API_KEY = "AIzaSyBFwHxGY47K0J1ECt99_TZA7aVO62ztUp0";
+        const string API_KEY = "AIzaSyDU_9MY1Z244gg5aOXPBIOVHdmLugbfZig";
         const string BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
         private Point convertStationDTOToPoint(StationDTO stationDTO)
         {

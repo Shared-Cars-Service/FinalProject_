@@ -19,16 +19,16 @@ namespace BL.DTO
         {
             this.StationID = stationId;
             this.Number = number;
-            this.Neighborhood = neighborhood;
-            this.Street = street;
-            this.City = city;
+            this.Neighborhood = neighborhood ?? "Unknown";
+            this.Street = street ?? "Unknown";
+            this.City = city ?? "Unknown";
         }
         public StationDTO(int number, string street, string neighborhood, string city)
         {
             this.Number = number;
-            this.Neighborhood = neighborhood;
-            this.Street = street;
-            this.City = city;
+            this.Neighborhood = neighborhood ?? "Unknown" ;
+            this.Street = street ?? "Unknown";
+            this.City = city ?? "Unknown";
         }
         //public StationDTO(string street, string neighborhood, string city)
         //{

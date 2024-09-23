@@ -69,16 +69,8 @@ namespace MyService.Controllers
         public async Task<bool> ChangeCarInStationMode(int stationId) {
             return await stationService.ChangeCarInStationMode(stationId);
         }
+        
 
     }
 }
 
-/////////////////////gffffffffffffffffffffffff
-/////////////
-///
-////////////////////////////////
-
-
-//
-//
-//

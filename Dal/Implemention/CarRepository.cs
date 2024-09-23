@@ -61,7 +61,7 @@ namespace Dal.Implemention
             //details of car will never change
             throw new NotImplementedException();
         }
-        public async Task<bool> ChangeTheCarModeAsync(int carId)
+        public async Task<bool> ChangeCarModeAsync(int carId)
         {
             try
             {

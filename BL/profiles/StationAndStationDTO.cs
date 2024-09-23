@@ -23,15 +23,41 @@ namespace BL.profiles
 
         public StationAndStationDTO()
         {
-            CreateMap<Station, StationDTO>().ForMember(station => station.Street, o => o.MapFrom(s => s.Street.Name))
-            .ForMember(n => n.Neighborhood, o => o.MapFrom(s => s.Street.Neigborhood.Name))
-            .ForMember(c => c.City, o => o.MapFrom(s => s.Street.Neigborhood.City.Name))
-            .ConstructUsing((src, ctx) => new StationDTO(
-                src.Id,
-                src.Number.Value,
-                src.Street.Name,
-                src.Street.Neigborhood.Name,
-                src.Street.Neigborhood.City.Name));
+            //CreateMap<Station, StationDTO>().ForMember(station => station.Street, o => o.MapFrom(s => s.Street.Name))
+            //.ForMember(n => n.Neighborhood, o => o.MapFrom(s => s.Street.Neigborhood.Name))
+            //.ForMember(c => c.City, o => o.MapFrom(s => s.Street.Neigborhood.City.Name))
+            //.ConstructUsing((src, ctx) => new StationDTO(
+            //    src.Id,
+            //    src.Number.Value,
+            //    src.Street.Name,
+            //    src.Street.Neigborhood.Name,
+            //    src.Street.Neigborhood.City.Name))
+            //.ReverseMap();
+
+            CreateMap<Station, StationDTO>()
+    .ForMember(station => station.Street, o => o.MapFrom(s => s.Street.Name))
+    .ForMember(n => n.Neighborhood, o => o.MapFrom(s => s.Street.Neigborhood.Name)) // שגיאת כתיב
+    .ForMember(c => c.City, o => o.MapFrom(s => s.Street.Neigborhood.City.Name))
+    .ConstructUsing((src, ctx) => new StationDTO(
+        src.Id,
+        src.Number.HasValue ? src.Number.Value : 0, // טיפול במקרה ש-Number הוא null
+        src.Street.Name,
+        src.Street.Neigborhood.Name,
+        src.Street.Neigborhood.City.Name))
+    .ReverseMap();
+
+
+            //      CreateMap<Station, StationDTO>()
+            //      .ForMember(station => station.Street, o => o.MapFrom(s => s.Street.Name))
+            //    .ForMember(n => n.Neighborhood, o => o.MapFrom(s => s.Street.Neigborhood.Name))
+            //.ForMember(c => c.City, o => o.MapFrom(s => s.Street.Neigborhood.City.Name))
+            //.ConstructUsing((src, ctx) => new StationDTO(
+            //    src.Id,
+            //    src.Number.HasValue ? src.Number.Value : 0, // או ערך ברירת מחדל אחר
+            //    src.Street.Name,
+            //    src.Street.Neigborhood.Name,
+            //    src.Street.Neigborhood.City.Name));
+
             //  .ConstructUsing(s => new StationDTO());
         }
     }

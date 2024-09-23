@@ -13,5 +13,6 @@ namespace BL.DTO
         public string Password { get; set; } = null!;
 
         public string Email { get; set; } = null!;
+        public bool isManager { get; set; } = false;
     }
 }

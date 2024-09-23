@@ -28,7 +28,7 @@ namespace MyService.Controllers
         {
             return await userService.ReadAllAsync();
         }
-        [HttpGet]
+        [HttpPost]
         [Route("{name}")]
         public async Task<ActionResult<UserDTO>> GetUser([FromHeader] string password, string name)
         {

@@ -34,10 +34,10 @@ namespace MyService.Controllers
         {
             return await carService.ReadByIdAsync(id);
         }
-        //[httpput]
-        //public async task<bool> changethecarmodeasync(int carid)
-        //{
-        //    return await carservice.changethecarmodeasync(carid);
-        //}
+        [HttpPut]
+        public async Task<bool> ChangeCarModeAsync(int carid)
+        {
+            return await carService.ChangeCarModeAsync(carid);
+        }
     }
 }
